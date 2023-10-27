@@ -18,34 +18,40 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Simple Pygame Example")
 
 # set timer
-pygame.time.set_timer(pygame.USEREVENT, 2000)
+pygame.time.set_timer(pygame.USEREVENT, 800)
 
 
 # Set the initial movement speed
-speed = 0.2
+speed = 50
+
+isLeft = False
 
 # Game loop
 running = True
 while running:
     for event in pygame.event.get():
+        print(event.type)
         if event.type == pygame.QUIT:
             running = False
-        
-        if event.type == pygame.USEREVENT:
-            print("hey")
-            snake.head.y +=speed
-            drawSnake(screen,snake)
-            # Update the display
-            pygame.display.flip()
-            
+        elif event.type == 769:
+            newHead = Square(snake.head.x-snake.width,snake.head.y,snake.width)
+            snake.snake_squares.insert(0,newHead)
+            snake.snake_squares.pop()
+        elif event.type == 768:
+            newHead = Square(snake.head.x+snake.width,snake.head.y,snake.width)
+            snake.snake_squares.insert(0,newHead)
+            snake.snake_squares.pop()
+
 
 
     # Get the state of all keys
     keys = pygame.key.get_pressed()
 
+
+
     # Move the rectangle based on key input
-    if keys[pygame.K_LEFT]:
-        snake.head.x -= speed
+    if isLeft == True :
+        isLeft = False
         if snake.head.x  <0:
             snake.head.x =0
     if keys[pygame.K_RIGHT]:
@@ -63,6 +69,8 @@ while running:
     
 
     
+    # Fill the screen with a white background
+    screen.fill(GRAY)
 
     # Draw the blue rectangle on the screen
     #pygame.draw.rect(screen, BLUE, (rect_x, rect_y, rect_width, rect_height))

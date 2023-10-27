@@ -18,7 +18,10 @@ class Snake:
         self.head = Square(rect_x,rect_y,rect_width)
         self.snake_squares = []
         self.snake_squares.append(self.head)
+        self.snake_squares.append(Square(self.head.x,self.head.y+self.head.width,self.head.width))
+        self.snake_squares.append(Square(self.head.x,self.head.y+self.head.width+self.head.width,self.head.width))
         self.color=color
+        self.width = self.head.width
 
         
     
