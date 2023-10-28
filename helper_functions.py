@@ -19,3 +19,8 @@ def drawSnake(screen,snake):
     for square in snake.snake_squares:
         pygame.draw.rect(screen, snake.color, (square.x, square.y, square.width, square.width))
 
+
+def isGameOver(snake):
+    return snake.is_Snake_collide_with_himself() or not snake.is_Snake_in_frontier()
+    
+

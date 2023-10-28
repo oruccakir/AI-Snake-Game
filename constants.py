@@ -1,3 +1,4 @@
+
 # Constants for the screen dimensions
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
@@ -13,13 +14,26 @@ GRAY = (50,100,100)
 
 
 # Initialize the rectangle's position and size
-rect_x = SCREEN_WIDTH // 2
-rect_y = SCREEN_HEIGHT // 2
-rect_width = 25
-rect_height = 25
+RECT_X = SCREEN_WIDTH // 4
+RECT_Y= SCREEN_HEIGHT // 4
+RECT_WIDTH = 25
+RECT_WIDTH = 25
 
 
 # Dairenin başlangıç konumu ve yarıçapı
-circle_x = SCREEN_WIDTH // 2
-circle_y = SCREEN_HEIGHT // 2
-circle_radius = 8
+CIRCLE_X = SCREEN_WIDTH // 2
+CIRCLE_Y = SCREEN_HEIGHT // 2
+CIRCLE_RADIUS = 8
+
+# for random circle axis and ordinate
+RANDOM_X=0
+RANDOM_Y=0
+
+# set the default game speed
+GAME_SPEED=80
+
+# amount of increment on game speed
+INCREMENT = 10
+
+# set the maximum speed
+MAX_SPEED = 30
