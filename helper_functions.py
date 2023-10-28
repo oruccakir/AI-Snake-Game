@@ -2,7 +2,6 @@ import pygame
 import sys
 import constants
 from constants import *
-import snake_game
 
 def drawRows(screen,screen_width,screen_height,width,colour):
     ordinate=0
@@ -27,8 +26,4 @@ def isGameOver(snake):
     return snake.is_Snake_collide_with_himself() or not snake.is_Snake_in_frontier()
     
 
-def start_button_action():
-    constants.STATE = GAME_STATE
 
-def end_button_action():
-    snake_game.running = False
