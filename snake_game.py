@@ -20,8 +20,8 @@ class Snake_Game:
         self.snake = Snake(BLACK,20)
         self.circle = Circle(CIRCLE_X,CIRCLE_Y,CIRCLE_RADIUS)
         # define a button
-        self.start_button = Button(300, 400, 200, 50, "START",GRAY,self.start_button_action)
-        self.start_ai_button = Button(250, 600, 300, 50, "START AS AI",GRAY,self.start_ai_button_action)
+        self.start_button = Button(300, 750, 300, 50, "START as HUMAN",GRAY,self.start_button_action)
+        self.start_ai_button = Button(300, 650, 300, 50, "START as ORUÇ",GRAY,self.start_ai_button_action)
         self.end_button = Button(300, 250, 200, 50, "END",GRAY,self.end_button_action)
         self.restart_button = Button(300, 100, 200, 50, "RESTART",GRAY,self.restart_button_action)
         self.pause_button = Button(25,25,150,40,"PAUSE",YELLOW,self.pause_button_action)
@@ -40,6 +40,15 @@ class Snake_Game:
         self.isUP = True
         self.isPaussed = False
         self.score = 0
+
+        self.frontier = []
+        self.frontier.append(Node(self.snake.head.x,self.snake.head.y))
+        self.directions = []
+
+        self.image = pygame.image.load("slytherin.jpg")
+        self.image_surface = self.image.convert()
+
+        self.headNode = Node(self.snake.head.x,self.snake.head.y)
 
 
 
@@ -103,10 +112,12 @@ class Snake_Game:
 
                     self.start_ai_button.check_click(event)
 
+
                 self.start_screen.fill(OLIVE)
                 # Update the display
                 self.start_button.draw_button(self.start_screen)
                 self.start_ai_button.draw_button(self.start_screen)
+                self.start_screen.blit(self.image_surface,(120,50))
                 pygame.display.flip()
 
             elif self.STATE == GAME_STATE:
@@ -128,18 +139,19 @@ class Snake_Game:
                             if not self.isRight:
                                 self.isLeft=True
                                 self.isUP = self.isDown = self.isRight = False
-                        if keys[pygame.K_RIGHT]:
+                        elif keys[pygame.K_RIGHT]:
                             if not self.isLeft:
                                 self.isRight=True
                                 self.isUP = self.isDown = self.isLeft = False
-                        if keys[pygame.K_UP]:
+                        elif keys[pygame.K_UP]:
                             if not self.isDown:
                                 self.isUP=True
                                 self.isLeft = self.isDown = self.isRight = False
-                        if keys[pygame.K_DOWN]:
+                        elif keys[pygame.K_DOWN]:
                             if not self.isUP:
                                 self.isDown=True
                                 self.isUP = self.isLeft = self.isRight = False
+                            
 
                     for event in pygame.event.get():
 
@@ -201,8 +213,8 @@ class Snake_Game:
 
                     self.settings_button.draw_button(self.game_screen)
 
-                    drawRect(self.game_screen,self.score_rect,str(self.score),WHITE)
-                    drawRect(self.game_screen,self.gamse_speed_rect, str(self.game_speed),WHITE)
+                    drawRect(self.game_screen,self.score_rect,f"Score : {self.score}",WHITE)
+                    drawRect(self.game_screen,self.gamse_speed_rect, f"Speed : {self.game_speed}",WHITE)
 
                     drawSnake(self.game_screen,self.snake)
 
@@ -263,6 +275,56 @@ class Snake_Game:
 
                 # Update the display
                 pygame.display.flip()
+            
+            elif self.STATE == AI_STATE:
+
+                if self.circle == None:
+                        self.circle = Circle(RANDOM_X,RANDOM_Y,CIRCLE_RADIUS)
+                
+                for event in pygame.event.get():
+
+                    self.pause_button.check_click(event)
+
+                    self.settings_button.check_click(event)
+
+                    if event.type == pygame.QUIT:
+                            self.RUNNING = False
+
+                    if event.type == pygame.USEREVENT and self.isPaussed == False:
+
+                       print()
+
+                    # Fill the screen with a gray background
+                    self.game_screen.fill(GRAY)
+
+                    self.pause_button.draw_button(self.game_screen)
+
+                    self.settings_button.draw_button(self.game_screen)
+
+                    drawRect(self.game_screen,self.score_rect,f"Score : {self.score}",WHITE)
+                    drawRect(self.game_screen,self.gamse_speed_rect, f"Speed : {self.game_speed}",WHITE)
+
+                    drawSnake(self.game_screen,self.snake)
+
+                   
+                    pygame.draw.rect(self.game_screen,GREEN,(0,4*RECT_WIDTH,RECT_WIDTH,SCREEN_HEIGHT-4*RECT_WIDTH))
+                    pygame.draw.rect(self.game_screen,GREEN,(SCREEN_WIDTH-RECT_WIDTH,4*RECT_WIDTH,RECT_WIDTH,SCREEN_HEIGHT-4*RECT_WIDTH))
+                    pygame.draw.rect(self.game_screen,GREEN,(0,SCREEN_HEIGHT-RECT_WIDTH,SCREEN_WIDTH,RECT_WIDTH))
+                    pygame.draw.rect(self.game_screen,GREEN,(0,4*RECT_WIDTH,SCREEN_WIDTH,RECT_WIDTH))
+
+                    #button.draw_button(screen)
+
+                    
+                    if self.circle != None:
+                        pygame.draw.circle(self.game_screen, RED, (self.circle.x, self.circle.y), self.circle.radius)
+
+                    # Update the display
+                    pygame.display.flip()
+                
+
+
+
+                
 
 
 

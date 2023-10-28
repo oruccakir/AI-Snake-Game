@@ -1,6 +1,18 @@
 from constants import *
 import pygame
 
+class Node:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        self.right = None
+        self.left = None
+        self.up = None
+        self.down = None
+        self.parent = None
+        self.childs = []
+        self.node_square = pygame.Rect(x,y,RECT_WIDTH,RECT_WIDTH)
+
 class Square:
     def __init__(self,x,y,width):
         self.x = x
@@ -60,6 +72,119 @@ class Snake:
             return False
         
         return True
+    
+    def aboveControl(self,node):
+
+        above_node = Node(node.x,node.y-RECT_WIDTH)
+
+        isCollideWith_Himself = False
+
+        for square in self.snake_squares:
+            if above_node.node_square.colliderect(square.square):
+                isCollideWith_Himself = True
+                break
+
+        isCollideWith_Frontier = False
+
+        print(above_node.node_square.y)
+
+        if above_node.node_square.y <= 4*RECT_WIDTH:
+            isCollideWith_Frontier = True
+
+        print("Fro " +str(isCollideWith_Frontier))
+        print("Him "+str(isCollideWith_Himself))
+        return not isCollideWith_Himself and not isCollideWith_Frontier
+    
+    
+    def belowControl(self,node):
+
+        below_node = Node(node.x,node.y+RECT_WIDTH)
+
+        isCollideWith_Himself = False
+
+        for square in self.snake_squares:
+            if below_node.node_square.colliderect(square.square):
+                isCollideWith_Himself = True
+                break
+
+        isCollideWith_Frontier = False
+
+        if below_node.node_square.y >= SCREEN_HEIGHT-1*RECT_WIDTH:
+            isCollideWith_Frontier = True
+
+        return not isCollideWith_Himself and not isCollideWith_Frontier
+    
+
+    def leftControl(self,node):
+
+        left_node = Node(node.x-RECT_WIDTH,node.y)
+
+        isCollideWith_Himself = False
+
+        for square in self.snake_squares:
+            if left_node.node_square.colliderect(square.square):
+                isCollideWith_Himself = True
+                break
+
+        isCollideWith_Frontier = False
+
+        if left_node.node_square.x <= 0:
+            isCollideWith_Frontier = True
+
+        return not isCollideWith_Himself and not isCollideWith_Frontier
+    
+
+    def rightControl(self,node):
+
+        right_node = Node(node.x+RECT_WIDTH+1,node.y)
+
+        isCollideWith_Himself = False
+
+        for square in self.snake_squares:
+            if right_node.node_square.colliderect(square.square):
+                isCollideWith_Himself = True
+                break
+
+        isCollideWith_Frontier = False
+
+        if right_node.node_square.x >= SCREEN_WIDTH-RECT_WIDTH:
+            isCollideWith_Frontier = True
+
+        return not isCollideWith_Himself and not isCollideWith_Frontier
+
+    
+
+    def findTheGoal(self,target_circle):
+
+        frontier = []
+        frontier.append(Node(self.head.x,self.head.y))
+        isFound = False
+
+        while not isFound:
+
+            currentNode = frontier.pop(0)
+
+            if currentNode.square.colliderect(target_circle.circle):
+                isFound = True
+            else:
+
+                if self.aboveControl(currentNode):
+                    currentNode.childs.append(Node(currentNode.x,currentNode.y+RECT_WIDTH))
+
+                if self.belowControl(currentNode):
+                    currentNode.childs.append(Node(currentNode.x,currentNode.y-RECT_WIDTH))
+
+                if self.leftControl(currentNode):
+                    currentNode.childs.append(Node(currentNode.x-RECT_WIDTH,currentNode.y))
+                
+                if self.rightControl(currentNode):
+                    currentNode.childs.append(Node(currentNode.x+RECT_WIDTH,currentNode.y))
+
+                for node in currentNode.childs:
+                    frontier.insert(0,node)
+
+
+
 
 
         

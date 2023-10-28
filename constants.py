@@ -16,6 +16,11 @@ END_STATE = 3
 SETTING_STATE = 4
 AI_STATE = 5
 
+UP = 1
+LEFT = 2
+DOWN = 3
+RIGHT = 4
+
 
 # Colors
 AQUA=(0, 255, 255)
@@ -49,10 +54,11 @@ RANDOM_X=0
 RANDOM_Y=0
 
 # set the default game speed
-GAME_SPEED=80
+GAME_SPEED=120
 
 # amount of increment on game speed
 INCREMENT = 5
 
 # set the maximum speed
 MAX_SPEED = 30
+
