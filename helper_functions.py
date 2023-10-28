@@ -24,6 +24,14 @@ def drawSnake(screen,snake):
 
 def isGameOver(snake):
     return snake.is_Snake_collide_with_himself() or not snake.is_Snake_in_frontier()
+
+def drawRect(surface,rect,text,color):
+    pygame.draw.rect(surface,color,rect)
+    font = pygame.font.Font(None,36)
+    text = font.render(text,True,(0,0,0))
+    text_rect = text.get_rect(center = rect.center)
+    surface.blit(text,text_rect)
+
     
 
 
