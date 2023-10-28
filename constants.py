@@ -1,7 +1,17 @@
 
 # Constants for the screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 800
+GAME_SCREEN_WIDTH = 800
+GAME_SCREEN_HEIGHT = 800
+
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
+
+START_STATE = 1
+GAME_STATE = 2
+END_STATE = 3
+
+STATE = 1
+
 
 # Colors
 WHITE = (255, 255, 255)
@@ -14,15 +24,15 @@ GRAY = (50,100,100)
 
 
 # Initialize the rectangle's position and size
-RECT_X = SCREEN_WIDTH // 4
-RECT_Y= SCREEN_HEIGHT // 4
+RECT_X = GAME_SCREEN_WIDTH // 4
+RECT_Y= GAME_SCREEN_HEIGHT // 4
 RECT_WIDTH = 25
 RECT_WIDTH = 25
 
 
 # Dairenin başlangıç konumu ve yarıçapı
-CIRCLE_X = SCREEN_WIDTH // 2
-CIRCLE_Y = SCREEN_HEIGHT // 2
+CIRCLE_X = GAME_SCREEN_WIDTH // 2
+CIRCLE_Y = GAME_SCREEN_HEIGHT // 2
 CIRCLE_RADIUS = 8
 
 # for random circle axis and ordinate

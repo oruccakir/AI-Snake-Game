@@ -56,7 +56,7 @@ class Snake:
             return False
     
     def is_Snake_in_frontier(self):
-        if self.head.x <= 0 or self.head.x >= SCREEN_WIDTH or self.head.y <=0 or self.head.y >= SCREEN_HEIGHT:
+        if self.head.x <= 0 or self.head.x >= GAME_SCREEN_WIDTH or self.head.y <=0 or self.head.y >= GAME_SCREEN_HEIGHT:
             return False
         
         return True
