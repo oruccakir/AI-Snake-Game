@@ -17,7 +17,7 @@ class Snake_Game:
         self.game_speed = GAME_SPEED
         self.STATE = START_STATE
         self.RUNNING = True
-        self.snake = Snake(BLACK,20)
+        self.snake = Snake(BLACK,SEGMENT_NUMBER)
         self.circle = Circle(CIRCLE_X,CIRCLE_Y,CIRCLE_RADIUS)
         # define a button
         self.start_button = Button(300, 750, 300, 50, "START as HUMAN",GRAY,self.start_button_action)
@@ -66,14 +66,14 @@ class Snake_Game:
         self.STATE = SETTING_STATE
     
     def return_game_button_action(self):
-        self.isPaussed = False
         self.STATE = GAME_STATE
+        self.pause_button.text = "Continue"
 
     def restart_button_action(self):
         self.game_speed = GAME_SPEED
         self.RUNNING = True
         self.STATE = GAME_STATE
-        self.snake = Snake(BLACK,20)
+        self.snake = Snake(BLACK,SEGMENT_NUMBER)
         self.circle = Circle(CIRCLE_X,CIRCLE_Y,CIRCLE_RADIUS)
         self.isDown = False
         self.isLeft = False

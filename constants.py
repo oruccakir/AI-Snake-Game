@@ -4,11 +4,13 @@ SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
 
 # Initialize the rectangle's position and size
-RECT_X = SCREEN_WIDTH // 4
-RECT_Y= SCREEN_HEIGHT // 4
+RECT_X = SCREEN_WIDTH // 2
+RECT_Y= SCREEN_HEIGHT // 2
 RECT_WIDTH = 25
 RECT_WIDTH = 25
 
+#number of segment
+SEGMENT_NUMBER = 10
 
 START_STATE = 1
 GAME_STATE = 2
