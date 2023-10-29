@@ -11,6 +11,9 @@ import time
 # Initialize Pygame
 pygame.init()
 
+# initialize the sound
+pygame.mixer.init()
+
 class Snake_Game:
 
     def __init__(self):
@@ -22,13 +25,23 @@ class Snake_Game:
         # define a button
         self.start_button = Button(300, 750, 300, 50, "START as HUMAN",GRAY,self.start_button_action)
         self.start_ai_button = Button(300, 650, 300, 50, "START as ORUÇ",GRAY,self.start_ai_button_action)
-        self.end_button = Button(300, 250, 200, 50, "END",GRAY,self.end_button_action)
-        self.restart_button = Button(300, 100, 200, 50, "RESTART",GRAY,self.restart_button_action)
+        self.end_button = Button(300, 800, 200, 50, "END",GRAY,self.end_button_action)
+        self.restart_button = Button(300, 600, 200, 50, "RESTART",GRAY,self.restart_button_action)
         self.pause_button = Button(25,25,150,40,"PAUSE",YELLOW,self.pause_button_action)
         self.settings_button = Button(375,25,150,40,"SETTINGS",BLUE,self.settings_button_action)
-        self.return_game_button = Button(300,600,200,50,"RETURN",GRAY,self.return_game_button_action)
+        self.return_game_button = Button(300,700,200,50,"RETURN",GRAY,self.return_game_button_action)
         self.score_rect = pygame.Rect(200,25,150,40)
+        self.end_score_rect = pygame.Rect(300,700,200,50)
+
+        
         self.gamse_speed_rect = pygame.Rect(550,25,150,40)
+
+        self.speed_set_rect = pygame.Rect(50,150,400,40)
+        self.snake_color_set = pygame.Rect(50,225,300,40)
+
+        self.speed_increment_button = Button(500,150,40,40,"+",RED,self.increment_action)
+        self.speed_decrement_button = Button(575,150,40,40,"-",OLIVE,self.decrement_action)
+        
         # Create the screen
         self.game_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.start_screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -48,9 +61,22 @@ class Snake_Game:
         self.image = pygame.image.load("slytherin.jpg")
         self.image_surface = self.image.convert()
 
+        self.image_end = pygame.image.load("game_over.jpg")
+        self.image_surface_end = self.image_end.convert()
+
         self.headNode = Node(self.snake.head.x,self.snake.head.y)
 
+    def increment_action(self):
+        pygame.time.set_timer(pygame.USEREVENT, self.game_speed)
+        if self.game_speed == 30:
+            return
+        self.game_speed = self.game_speed - 5
 
+    def decrement_action(self):
+        pygame.time.set_timer(pygame.USEREVENT, self.game_speed)
+        if self.game_speed == 150:
+            return
+        self.game_speed = self.game_speed + 5
 
     def start_button_action(self):
         self.STATE = GAME_STATE
@@ -236,6 +262,8 @@ class Snake_Game:
             
             elif self.STATE == END_STATE:
 
+                pygame.time.delay(2000)
+
                 for event in pygame.event.get():
 
                     if event.type == pygame.QUIT:
@@ -249,6 +277,8 @@ class Snake_Game:
 
                 self.end_button.draw_button(self.end_screen)
                 self.restart_button.draw_button(self.end_screen)
+                self.end_screen.blit(self.image_surface_end,(275,150))
+                drawRect(self.end_screen,self.end_score_rect,f"Final score : {self.score}",GREEN)
 
 
                 # Update the display
@@ -266,12 +296,23 @@ class Snake_Game:
                     self.restart_button.check_click(event)
 
                     self.return_game_button.check_click(event)
+
+                    self.speed_increment_button.check_click(event)
+
+                    self.speed_decrement_button.check_click(event)
+
                 
                 self.settings_screen.fill(TEAL)
                 
                 self.return_game_button.draw_button(self.settings_screen)
                 self.end_button.draw_button(self.settings_screen)
                 self.restart_button.draw_button(self.settings_screen)
+
+                drawRect(self.settings_screen,self.speed_set_rect,f"Game Speed Setting : {self.game_speed} ",YELLOW)
+                drawRect(self.settings_screen,self.snake_color_set,f"Snake Color Setting : ",YELLOW)
+
+                self.speed_increment_button.draw_button(self.settings_screen)
+                self.speed_decrement_button.draw_button(self.settings_screen)
 
                 # Update the display
                 pygame.display.flip()
