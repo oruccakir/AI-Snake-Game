@@ -72,7 +72,7 @@ class Snake_Game:
     def restart_button_action(self):
         self.game_speed = GAME_SPEED
         self.RUNNING = True
-        self.STATE = GAME_STATE
+        self.STATE = START_STATE
         self.snake = Snake(BLACK,SEGMENT_NUMBER)
         self.circle = Circle(CIRCLE_X,CIRCLE_Y,CIRCLE_RADIUS)
         self.isDown = False

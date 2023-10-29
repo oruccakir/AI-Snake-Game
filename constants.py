@@ -4,8 +4,8 @@ SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
 
 # Initialize the rectangle's position and size
-RECT_X = SCREEN_WIDTH // 2
-RECT_Y= SCREEN_HEIGHT // 2
+RECT_X = SCREEN_WIDTH // 3
+RECT_Y= SCREEN_HEIGHT // 1.5
 RECT_WIDTH = 25
 RECT_WIDTH = 25
 
