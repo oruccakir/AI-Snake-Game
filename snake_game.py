@@ -261,9 +261,7 @@ class Snake_Game:
 
             
             elif self.STATE == END_STATE:
-
-                pygame.time.delay(2000)
-
+                
                 for event in pygame.event.get():
 
                     if event.type == pygame.QUIT:
