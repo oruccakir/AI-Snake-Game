@@ -120,7 +120,7 @@ class Snake_Game:
     
     def game(self):
 
-        pygame.display.set_caption("Simple Pygame Example")
+        pygame.display.set_caption("AI SNAKE GAME")
 
          # set timer
         pygame.time.set_timer(pygame.USEREVENT, self.game_speed)
